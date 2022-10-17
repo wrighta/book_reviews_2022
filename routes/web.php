@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use Database\Seeders\BookSeeder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+// This will create all the routes for Book
+// and the routes will only be available when a user is logged in
+Route::resource('/books',BookController::class)->middleware(['auth']);
