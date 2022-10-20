@@ -59,7 +59,18 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        // Use the code below if you want the user to only be able to view books that they own.
+        //  if($book->user_id != Auth::id()) {
+        //     return abort(403);
+        // }
+
+        if(!Auth::id()) {
+           return abort(403);
+         }
+
+        //this function is used to get a book by the ID.
+        return view('books.show')->with('book', $book);
+
     }
 
     /**
