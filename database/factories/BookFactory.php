@@ -19,7 +19,7 @@ class BookFactory extends Factory
         return [
             'title' => $this->faker->word,
             'category' => $this->faker->text(50),
-            'book_image' => "public\images\book_placeholder.jpg",
+            'book_image' => "public\image\Tess_the_TickTock_Dog.jpg",
             'description' => $this->faker->text(200),
             'author' => $this->faker->name
         ];
