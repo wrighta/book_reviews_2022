@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateBookRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -37,18 +39,38 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBookRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        // for more validation rules check out https://laravel.com/docs/9.x/validation
+        $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'description' => 'required|max:500',
+            'author' =>'required'
+        ]);
+
+   //     dd($request);
+        Book::create([
+            // Ensure you have the use statement for
+            // Illuminate\Support\Str at the top of this file.
+        //    'user_id' => Auth::id(),
+            'title' => $request->title,
+            'category' => $request->category,
+            'description' => $request->description,
+            'book_image' => "public\image\Tess_the_TickTock_Dog.jpg",
+            'author' => $request->author
+        ]);
+
+        return to_route('books.index');
     }
 
     /**
