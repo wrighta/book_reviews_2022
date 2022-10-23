@@ -50,23 +50,28 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // for more validation rules check out https://laravel.com/docs/9.x/validation
         $request->validate([
             'title' => 'required',
             'category' => 'required',
             'description' => 'required|max:500',
-            'author' =>'required'
+            'author' =>'required',
+            //'book_image' => 'file|image|dimensions:width=300,height=400'
+            'book_image' => 'file|image'
         ]);
 
-   //     dd($request);
+        $book_image = $request->file('book_image');
+        $extension = $book_image->getClientOriginalExtension();
+        // the filename needs to be unique, I use title and add the date to guarantee a unique filename, ISBN would be better here.
+        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.'. $extension;
+
+        // store the file $book_image in /public/images, and name it $filename
+        $path = $book_image->storeAs('public/images', $filename);
+
         Book::create([
-            // Ensure you have the use statement for
-            // Illuminate\Support\Str at the top of this file.
-        //    'user_id' => Auth::id(),
             'title' => $request->title,
             'category' => $request->category,
             'description' => $request->description,
-            'book_image' => "public\image\Tess_the_TickTock_Dog.jpg",
+            'book_image' => $filename,
             'author' => $request->author
         ]);
 
