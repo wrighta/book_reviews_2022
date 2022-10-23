@@ -25,6 +25,12 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
+                        <td rowspan="6">
+                            <!-- use the asset function, access the file $book->book_image in the folder storage/images -->
+                            <img src="{{asset('storage/images/' . $book->book_image) }}" width="150" />
+                        </td>
+                        </tr>
+                        <tr>
                             <td class="font-bold ">Title  </td>
                             <td>{{ $book->title }}</td>
                         </tr>
