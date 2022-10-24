@@ -108,19 +108,56 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        // This user id check below was implemented as part of LiteNote
+        // I don't have a user id linked to books,so I don't need it here - in CA 2 we will allow only admin users to edit books.
+        // if($book->user_id != Auth::id()) {
+        //     return abort(403);
+        // }
+
+      //  dd($book);
+
+        // Load the edit view which will display the edit form
+        // Pass in the current book so that it appears in the form.
+        return view('books.edit')->with('book', $book);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBookRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        //
+      //  dd($request);
+        //   //This function is quite like the store() function.
+          $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'description' => 'required|max:500',
+            'author' =>'required',
+            //'book_image' => 'file|image|dimensions:width=300,height=400'
+           'book_image' => 'file|image'
+        ]);
+
+        $book_image = $request->file('book_image');
+        $extension = $book_image->getClientOriginalExtension();
+        // // the filename needs to be unique, I use title and add the date to guarantee a unique filename, ISBN would be better here.
+        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.'. $extension;
+
+        // // store the file $book_image in /public/images, and name it $filename
+        $path = $book_image->storeAs('public/images', $filename);
+
+        $book->update([
+            'title' => $request->title,
+            'category' => $request->category,
+            'description' => $request->description,
+            'book_image' => $filename,
+            'author' => $request->author
+        ]);
+
+        return to_route('books.show', $book)->with('success','Book updated successfully');
     }
 
     /**
