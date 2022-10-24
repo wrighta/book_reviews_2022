@@ -15,6 +15,7 @@
 
             <div class="flex">
 
+                <!-- when EDIT BUTTON is clicked, route to books.edit -->
                 <a href="{{ route('books.edit', $book) }}" class="btn-link ml-auto">Edit</a>
                 <form action="{{ route('books.destroy', $book) }}" method="post">
                     @method('delete')
