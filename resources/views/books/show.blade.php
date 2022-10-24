@@ -17,6 +17,8 @@
 
                 <!-- when EDIT BUTTON is clicked, route to books.edit -->
                 <a href="{{ route('books.edit', $book) }}" class="btn-link ml-auto">Edit</a>
+
+                <!-- delete button is wrapped in a form, with the delete method. -->
                 <form action="{{ route('books.destroy', $book) }}" method="post">
                     @method('delete')
                     @csrf
