@@ -130,8 +130,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-      //  dd($request);
-        //   //This function is quite like the store() function.
+         //   //This function is quite like the store() function.
           $request->validate([
             'title' => 'required',
             'category' => 'required',
