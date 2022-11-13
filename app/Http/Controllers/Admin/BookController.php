@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateBookRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+
 
 class BookController extends Controller
 {
