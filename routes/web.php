@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
+use App\Http\Controllers\User\BookController as UserBookController;
 use Database\Seeders\BookSeeder;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,13 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+
 // This will create all the routes for Book
 // and the routes will only be available when a user is logged in
-Route::resource('/books',BookController::class)->middleware(['auth']);
+Route::resource('/admin/books', AdminBookController::class)->middleware(['auth'])->names('admin.books');
+
+Route::resource('/user/books', UserBookController::class)->middleware(['auth'])->names('user.books')->only(['index', 'show']);
+
+
