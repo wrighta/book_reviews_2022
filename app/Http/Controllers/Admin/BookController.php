@@ -21,6 +21,7 @@ class BookController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
+        //$books = Book::all();
        // $books = Book::paginate(10);
        $books = Book::with('publisher')->get();
 
@@ -58,7 +59,8 @@ class BookController extends Controller
             'description' => 'required|max:500',
             'author' =>'required',
             //'book_image' => 'file|image|dimensions:width=300,height=400'
-            'book_image' => 'file|image'
+            'book_image' => 'file|image',
+            'publisher_id' => 'required'
         ]);
 
         $book_image = $request->file('book_image');
@@ -74,7 +76,8 @@ class BookController extends Controller
             'category' => $request->category,
             'description' => $request->description,
             'book_image' => $filename,
-            'author' => $request->author
+            'author' => $request->author,
+            'publisher_id' => $request->publisher_id
         ]);
 
         return to_route('admin.books.index');
