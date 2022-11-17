@@ -15,11 +15,12 @@
             @forelse ($books as $book)
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                     <h2 class="font-bold text-2xl">
-                    <a href="{{ route('admin.books.show', $book) }}">{{ $book->title }}</a>
+                    <a href="{{ route('admin.books.show', $book) }}"> <strong> Title </strong> {{ $book->title }}</a>
                     </h2>
                     <p class="mt-2">
-                        {{ $book->category }}
-                        {{$book->author}}
+
+                        <h3 class="font-bold text-1xl"> <strong> Publisher Name </strong>
+                        {{$book->publisher->name}} </h3>
                         {{$book->description}}
 
                     </p>
@@ -29,7 +30,7 @@
             <p>No books</p>
             @endforelse
             <!-- This line of code simply adds the links for Pagination-->
-            {{$books->links()}}
+            {{-- {{$books->links()}} --}}
         </div>
     </div>
 </x-app-layout>

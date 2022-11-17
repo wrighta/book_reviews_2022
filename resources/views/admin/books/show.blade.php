@@ -28,7 +28,7 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                        <td rowspan="6">
+                        <td rowspan="7">
                             <!-- use the asset function, access the file $book->book_image in the folder storage/images -->
                             <img src="{{asset('storage/images/' . $book->book_image) }}" width="150" />
                         </td>
@@ -49,6 +49,17 @@
                             <td class="font-bold ">Category </td>
                             <td>{{ $book->category }}</td>
                         </tr>
+
+                        <tr>
+                            <td class="font-bold ">Publisher Name </td>
+                            <td>{{ $book->publisher->name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-bold ">Publisher Address </td>
+                            <td>{{ $book->publisher->address }}</td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

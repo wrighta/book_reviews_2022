@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,8 @@ class BookController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $books = Book::paginate(10);
+       // $books = Book::paginate(10);
+       $books = Book::with('publisher')->get();
 
         return view('admin.books.index')->with('books', $books);
     }
@@ -35,7 +37,8 @@ class BookController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        return view('admin.books.create');
+        $publishers = Publisher::all();
+        return view('admin.books.create')->with('publishers',$publishers);
     }
 
     /**

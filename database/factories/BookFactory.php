@@ -22,6 +22,8 @@ class BookFactory extends Factory
             'book_image' => "Tess_the_TickTock_Dog.jpg",
             'description' => $this->faker->text(200),
             'author' => $this->faker->name
+            // Note I could add the PublisherId here, but I've chosen to do this using
+            // a 'magic method' hasBooks() in the PublisherSeeder.
         ];
     }
 }
