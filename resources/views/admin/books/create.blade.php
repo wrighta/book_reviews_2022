@@ -51,6 +51,17 @@
                         field="book_image">
                     </x-file-input>
 
+                    <div class="form-group">
+                        <label for="publisher">Publisher</label>
+                        <select name="publisher_id">
+                          @foreach ($publishers as $publisher)
+                            <option value="{{$publisher->id}}" {{(old('publisher_id') == $publisher->id) ? "selected" : ""}}>
+                              {{$publisher->name}}
+                            </option>
+                          @endforeach
+                     </select>
+
+
                     <x-primary-button class="mt-6">Save Book</x-primary-button>
                 </form>
             </div>
