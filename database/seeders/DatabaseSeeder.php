@@ -23,11 +23,5 @@ class DatabaseSeeder extends Seeder
         // seeds the books table with 20 books for each Publisher.
         $this->call(PublisherSeeder::class);
 
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
