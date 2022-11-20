@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PublisherController extends Controller
 {
@@ -14,7 +16,15 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+       $publishers = Publisher::all();
+       // $publishers = Publisher::paginate(10);
+       // need to test if with 'books' works
+       // $publishers = Publisher::with('books')->get();
+
+        return view('admin.publishers.index')->with('publishers', $publishers);
     }
 
     /**
@@ -41,12 +51,19 @@ class PublisherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Publisher $publisher
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Publisher $publisher)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        if(!Auth::id()) {
+           return abort(403);
+         }
+
+        return view('admin.publishers.show')->with('publisher', $publisher);
     }
 
     /**
