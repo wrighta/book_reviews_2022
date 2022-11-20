@@ -91,17 +91,14 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
         if(!Auth::id()) {
            return abort(403);
          }
-
-        //this function is used to get a book by the ID.
+         
         return view('admin.books.show')->with('book', $book);
-
     }
 
     /**
