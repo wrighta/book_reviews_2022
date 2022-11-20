@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('home.index')" :active="request()->routeIs('home.index')">
                         {{ __('Books') }}
                     </x-nav-link>
+                <!-- Pubislisher Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('home.publisher.index')" :active="request()->routeIs('home.publisher.index')">
+                        {{ __('Publishers') }}
+                    </x-nav-link>
                 </div>
             </div>
 
