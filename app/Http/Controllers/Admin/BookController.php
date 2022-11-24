@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
@@ -23,7 +24,11 @@ class BookController extends Controller
 
         //$books = Book::all();
        // $books = Book::paginate(10);
-       $books = Book::with('publisher')->get();
+       // $books = Book::with('publisher')->get();
+       $books = Book::with('publisher')
+         ->with('authors')
+         ->get();
+
 
         return view('admin.books.index')->with('books', $books);
     }
@@ -39,7 +44,9 @@ class BookController extends Controller
         $user->authorizeRoles('admin');
 
         $publishers = Publisher::all();
-        return view('admin.books.create')->with('publishers',$publishers);
+        $authors = Author::all();
+
+        return view('admin.books.create')->with('publishers',$publishers)->with('authors', $authors);
     }
 
     /**
@@ -57,10 +64,11 @@ class BookController extends Controller
             'title' => 'required',
             'category' => 'required',
             'description' => 'required|max:500',
-            'author' =>'required',
+          //  'author' =>'required',
             //'book_image' => 'file|image|dimensions:width=300,height=400'
             'book_image' => 'file|image',
-            'publisher_id' => 'required'
+            'publisher_id' => 'required',
+            'authors' =>['required' , 'exists:authors,id']
         ]);
 
         $book_image = $request->file('book_image');
@@ -71,14 +79,16 @@ class BookController extends Controller
         // store the file $book_image in /public/images, and name it $filename
         $path = $book_image->storeAs('public/images', $filename);
 
-        Book::create([
+        $book = Book::create([
             'title' => $request->title,
             'category' => $request->category,
             'description' => $request->description,
             'book_image' => $filename,
-            'author' => $request->author,
+        //    'author' => $request->author,
             'publisher_id' => $request->publisher_id
         ]);
+
+        $book->authors()->attach($request->authors);
 
         return to_route('admin.books.index');
     }
@@ -97,7 +107,7 @@ class BookController extends Controller
         if(!Auth::id()) {
            return abort(403);
          }
-         
+
         return view('admin.books.show')->with('book', $book);
     }
 
@@ -142,7 +152,7 @@ class BookController extends Controller
             'title' => 'required',
             'category' => 'required',
             'description' => 'required|max:500',
-            'author' =>'required',
+       //     'author' =>'required',
             //'book_image' => 'file|image|dimensions:width=300,height=400'
            'book_image' => 'file|image'
         ]);
@@ -160,7 +170,7 @@ class BookController extends Controller
             'category' => $request->category,
             'description' => $request->description,
             'book_image' => $filename,
-            'author' => $request->author
+       //     'author' => $request->author
         ]);
 
         return to_route('admin.books.show', $book)->with('success','Book updated successfully');

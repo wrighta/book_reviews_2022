@@ -13,7 +13,7 @@
                 {{ session('success') }}
             </x-alert-success>
 
-          
+
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                 <table class="table table-hover">
                     <tbody>
@@ -27,10 +27,10 @@
                             <td class="font-bold ">Title  </td>
                             <td>{{ $book->title }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td class="font-bold ">Author  </td>
                             <td>{{ $book->author }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <td class="font-bold">Description </td>
                             <td>{{ $book->description }}</td>

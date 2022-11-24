@@ -35,13 +35,13 @@
                         class="w-full mt-6"
                         :value="@old('description')"></x-textarea>
 
-                    <x-text-input
+                    {{-- <x-text-input
                         type="text"
                         name="author"
                         field="author"
                         placeholder="Author..."
                         class="w-full mt-6"
-                        :value="@old('author')"></x-text-input>
+                        :value="@old('author')"></x-text-input> --}}
 
                     <x-file-input
                         type="file"
@@ -61,6 +61,14 @@
                           @endforeach
                      </select>
 
+                    <div class="form-group">
+                        <label for="authors"> <strong> Authors</strong> <br> </label>
+                        @foreach ($authors as $author)
+                            <input type="checkbox", value="{{$author->id}}" name="authors[]">
+                           {{$author->name}}
+                        @endforeach
+                    </div>
+                     </>
 
                     <x-primary-button class="mt-6">Save Book</x-primary-button>
                 </form>

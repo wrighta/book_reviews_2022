@@ -19,9 +19,11 @@ class DatabaseSeeder extends Seeder
       //  $this->call(BookSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        // I only need to call the PublisherSeeder, this calls hasBooks() which
+        // PublisherSeeder calls hasBooks() which
         // seeds the books table with 20 books for each Publisher.
         $this->call(PublisherSeeder::class);
-
+        // AuthorSeeder creates authors then gets all the books from the DB
+        // and randomly assigns authors to many books
+        $this->call(AuthorSeeder::class);
     }
 }

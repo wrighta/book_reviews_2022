@@ -37,13 +37,13 @@
                     class="w-full mt-6"
                     :value="@old('description', $book->description)"></x-textarea>
 
-                <x-text-input
+                {{-- <x-text-input
                     type="text"
                     name="author"
                     field="author"
                     placeholder="Author..."
                     class="w-full mt-6"
-                    :value="@old('author',$book->author)"></x-text-input>
+                    :value="@old('author',$book->author)"></x-text-input> --}}
 
                 <x-file-input
                     type="file"
