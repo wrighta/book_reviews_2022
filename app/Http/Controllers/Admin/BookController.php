@@ -22,7 +22,7 @@ class BookController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        //$books = Book::all();
+       //$books = Book::all();
        // $books = Book::paginate(10);
        // $books = Book::with('publisher')->get();
        $books = Book::with('publisher')
@@ -60,6 +60,7 @@ class BookController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
+
         $request->validate([
             'title' => 'required',
             'category' => 'required',
@@ -88,6 +89,7 @@ class BookController extends Controller
             'publisher_id' => $request->publisher_id
         ]);
 
+        //Adds entries in the pivot table. 
         $book->authors()->attach($request->authors);
 
         return to_route('admin.books.index');

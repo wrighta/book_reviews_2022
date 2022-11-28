@@ -22,6 +22,7 @@
                         <h3 class="font-bold text-1xl"> <strong> Publisher Name </strong>
                         {{$book->publisher->name}} </h3>
                         {{$book->description}}
+                       
 
                     </p>
 
