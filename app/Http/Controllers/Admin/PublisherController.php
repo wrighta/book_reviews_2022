@@ -20,10 +20,6 @@ class PublisherController extends Controller
         $user->authorizeRoles('admin');
 
        $publishers = Publisher::all();
-       // $publishers = Publisher::paginate(10);
-       // need to test if with 'books' works
-       // $publishers = Publisher::with('books')->get();
-
         return view('admin.publishers.index')->with('publishers', $publishers);
     }
 
